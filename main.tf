@@ -17,40 +17,13 @@ provider "aws" {
 }
 
 
-/* Commented out until after bootstrap
-# Call the seed_module to build our ADO seed info
-module "bootstrap" {
-  source                      = "./modules/bootstrap"
-  name_of_s3_bucket           = "kyler-github-actions-demo-terraform-tfstate"
-  dynamo_db_table_name        = "aws-locks"
-  iam_user_name               = "GitHubActionsIamUser"
-  ado_iam_role_name           = "GitHubActionsIamRole"
-  aws_iam_policy_permits_name = "GitHubActionsIamPolicyPermits"
-  aws_iam_policy_assume_name  = "GitHubActionsIamPolicyAssume"
-}
-*/
-# Build the VPC
-resource "aws_vpc" "vpc" {
-  cidr_block           = "10.1.0.0/16"
-  instance_tenancy     = "default"
+resource "aws_instance" "ec2-jung-terraform-test1" {
+  ami = "ami-063c5a5e375b71d95" #CentOS 8.4.2105 x86_64
+  instance_type = "t2.micro"
+  key_name = "test"
+  vpc_security_group_ids = [aws_security_group.terraform_test_sg.id]
+  
   tags = {
-    Name      = "Vpc"
-    Terraform = "true"
-  }
-}
-# Build route table 1
-resource "aws_route_table" "route_table1" {
-  vpc_id = aws_vpc.vpc.id
-  tags = {
-    Name = "RouteTable1"
-    Terraform = "true"
-  }
-}
-# Build route table 2
-resource "aws_route_table" "route_table2" {
-  vpc_id = aws_vpc.vpc.id
-  tags = {
-    Name = "RouteTable2"
-    Terraform = "true"
+    Name = "ec2-jung-terraform-test1"
   }
 }

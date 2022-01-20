@@ -23,3 +23,13 @@ resource "aws_instance" "ec2-jung-terraform-test2" {
     Name = "ec2-jung-terraform-test2"
   }
 }
+resource "aws_instance" "ec2-jung-terraform-test3" {
+  ami = "ami-0902e32cadc848c1a" #Microsoft Windows Server 2019 Base
+  instance_type = "t2.micro"
+  key_name = "test"
+  vpc_security_group_ids = [aws_security_group.terraform_test_sg.id]
+
+  tags = {
+    Name = "ec2-jung-terraform-test3"
+  }
+}

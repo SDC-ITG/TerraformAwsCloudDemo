@@ -1,4 +1,4 @@
-resource "aws_security_group" "terraform_test_sg" {
+/#resource "aws_security_group" "terraform_test_sg" {
   name        = "terraform_test"
   description = "Allow http and https traffic."
   vpc_id      = "vpc-f33c0a97" # デフォルトvpcのID
@@ -58,3 +58,5 @@ resource "aws_security_group_rule" "inbound_rdp" {
   # ここでterraform_testセキュリティグループに紐付け
   security_group_id = "${aws_security_group.terraform_test_sg.id}"
 }
+*/
+  
